@@ -2,6 +2,7 @@ package pl.spring.demo.to;
 
 import pl.spring.demo.BookAbstract;
 
+
 public class BookTo extends BookAbstract {
 
     private String authors;

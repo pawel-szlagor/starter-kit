@@ -1,6 +1,6 @@
 package pl.spring.demo.to;
 
-public class AuthorTo {
+public class AuthorTo implements IdAware {
 
 	Long id;
 	String firstName;
@@ -18,6 +18,7 @@ public class AuthorTo {
 		this.lastName = lastName;
 	}
 
+	@Override
 	public Long getId() {
 		return id;
 	}
@@ -29,7 +30,8 @@ public class AuthorTo {
 	public String getLastName() {
 		return lastName;
 	}
-
+	
+	@Override
 	public void setId(Long id) {
 		this.id = id;
 	}

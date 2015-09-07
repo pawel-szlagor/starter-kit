@@ -1,4 +1,4 @@
-package entity;
+package pl.spring.demo.entity;
 
 
 import java.util.List;
