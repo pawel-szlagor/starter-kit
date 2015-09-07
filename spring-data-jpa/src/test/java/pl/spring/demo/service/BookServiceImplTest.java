@@ -36,12 +36,12 @@ public class BookServiceImplTest {
         // then
         assertNotNull(allBooks);
         assertFalse(allBooks.isEmpty());
-        assertEquals(6, allBooks.size());
+        assertEquals(7, allBooks.size());
     }
 
+
     @Test
-    @Ignore
-    public void testShouldFindAllBooksByTitle() {
+    public void testShouldFindAllBooksByFullTitle() {
         // given
         final String title = "Opium w rosole";
         // when
@@ -49,7 +49,46 @@ public class BookServiceImplTest {
         // then
         assertNotNull(booksByTitle);
         assertFalse(booksByTitle.isEmpty());
+        assertEquals(booksByTitle.get(0).getTitle(), title);
     }
+    
+    @Test
+    public void testShouldFindAllBooksByFullAuthorsName() {
+        // given
+        final String authorsName = "Henryk Sienkiewicz";
+        // when
+        List<BookTo> booksByAuthor = bookService.findBooksByAuthor(authorsName);
+        // then
+        assertNotNull(booksByAuthor);
+        assertFalse(booksByAuthor.isEmpty());
+        assertEquals(booksByAuthor.get(0).getAuthors(), authorsName);
+    }
+    
+    @Test
+    public void testShouldFindAllBooksByPartialTitle() {
+        // given
+        final String title = "Opiu";
+        // when
+        List<BookTo> booksByTitle = bookService.findBooksByTitle(title);
+        // then
+        assertNotNull(booksByTitle);
+        assertFalse(booksByTitle.isEmpty());
+        assertEquals(booksByTitle.get(0).getTitle().substring(0,4), title);
+    }
+    
+    @Test
+    public void testShouldFindAllBooksByPartialAuthorsName() {
+        // given
+        final String authorsName = "H";
+        // when
+        List<BookTo> booksByAuthor = bookService.findBooksByAuthor(authorsName);
+        // then
+        assertNotNull(booksByAuthor);
+        assertEquals(booksByAuthor.size(),2);
+        assertEquals(booksByAuthor.get(0).getAuthors().substring(0,1), authorsName);  
+        assertEquals(booksByAuthor.get(1).getAuthors().substring(0,1), authorsName);
+    }
+    
 
     @Ignore
     @Test

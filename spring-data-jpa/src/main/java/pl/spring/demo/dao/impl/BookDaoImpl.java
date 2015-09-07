@@ -6,9 +6,11 @@ import pl.spring.demo.dao.BookDao;
 import pl.spring.demo.to.BookTo;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
@@ -32,20 +34,25 @@ public class BookDaoImpl implements BookDao {
 
     @Override
     public List<BookTo> findBookByTitle(String title) {
-        return null;
+    	List<BookTo> results = 
+    	ALL_BOOKS.stream()
+    	.filter(book -> book.getTitle().startsWith(title))
+    	.collect(Collectors.toList());
+    	return results;
     }
 
     @Override
     public List<BookTo> findBooksByAuthor(String author) {
-        return null;
+    	List<BookTo> results = 
+    	ALL_BOOKS.stream()
+    	.filter(book -> book.getAuthors().startsWith(author))
+    	.collect(Collectors.toList());
+    	return results;
     }
 
     @Override
     @GenerateId
     public BookTo save(BookTo book) {
- /*       if (book.getId() == null) {
-            book.setId(sequence.nextValue(ALL_BOOKS));
-        }*/
         ALL_BOOKS.add(book);
         return book;
     }
@@ -61,5 +68,6 @@ public class BookDaoImpl implements BookDao {
         ALL_BOOKS.add(new BookTo(4L, "Awantura w Niekłaju", "Edmund Niziurski"));
         ALL_BOOKS.add(new BookTo(5L, "Pan Samochodzik i Fantomas", "Zbigniew Nienacki"));
         ALL_BOOKS.add(new BookTo(6L, "Zemsta", "Aleksander Fredro"));
+        ALL_BOOKS.add(new BookTo(7L, "W pustyni i w puszczy", "Henryk Sienkiewicz"));
     }
 }
