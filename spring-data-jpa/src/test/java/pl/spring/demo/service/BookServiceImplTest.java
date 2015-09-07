@@ -22,7 +22,7 @@ public class BookServiceImplTest {
 
     @Test
     public void testShouldFindAllBooks() {
-        // when
+    	// when
         List<BookTo> allBooks = bookService.findAllBooks();
         // then
         assertNotNull(allBooks);
@@ -42,6 +42,24 @@ public class BookServiceImplTest {
         assertFalse(booksByTitle.isEmpty());
     }
 
+    @Ignore
+    @Test
+    public void testShouldAddNewBookWithoutId(){
+    	//given
+    	final BookTo bookToSave = new BookTo();
+    	bookToSave.setTitle("W pustyni i w puszczy");
+    	bookToSave.setAuthors("Henryk Sienkiewicz");
+    	List<BookTo> allBooks = bookService.findAllBooks();
+    	int startSize = allBooks.size();
+    	//when
+    	bookService.saveBook(bookToSave);   	
+    	//then
+    	assertFalse(allBooks.contains(bookToSave));
+    	assertNotNull(bookToSave.getId());
+    	assertEquals(startSize+1, bookService.findAllBooks().size());
+    }
+    
+
     @Test(expected = BookNotNullIdException.class)
     public void testShouldThrowBookNotNullIdException() {
         // given
@@ -52,4 +70,5 @@ public class BookServiceImplTest {
         // then
         fail("test should throw BookNotNullIdException");
     }
+   
 }

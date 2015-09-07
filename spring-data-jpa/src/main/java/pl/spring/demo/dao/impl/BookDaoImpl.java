@@ -1,6 +1,6 @@
 package pl.spring.demo.dao.impl;
 
-import pl.spring.demo.annotation.NullableId;
+import pl.spring.demo.annotation.GenerateId;
 import pl.spring.demo.common.Sequence;
 import pl.spring.demo.dao.BookDao;
 import pl.spring.demo.to.BookTo;
@@ -10,10 +10,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Repository;
+
+@Repository("bookDaoImpl")
 public class BookDaoImpl implements BookDao {
 
     private final Set<BookTo> ALL_BOOKS = new HashSet<>();
 
+    @Value("#{sequence}")
     private Sequence sequence;
 
     public BookDaoImpl() {
@@ -36,11 +41,11 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
-    @NullableId
+    @GenerateId
     public BookTo save(BookTo book) {
-        if (book.getId() == null) {
+ /*       if (book.getId() == null) {
             book.setId(sequence.nextValue(ALL_BOOKS));
-        }
+        }*/
         ALL_BOOKS.add(book);
         return book;
     }

@@ -1,13 +1,18 @@
 package pl.spring.demo.aop;
 
 
+import org.aspectj.lang.annotation.Aspect;
 import org.springframework.aop.MethodBeforeAdvice;
+import org.springframework.stereotype.Service;
+
 import pl.spring.demo.annotation.NullableId;
 import pl.spring.demo.exception.BookNotNullIdException;
 import pl.spring.demo.to.IdAware;
 
 import java.lang.reflect.Method;
 
+@Aspect
+@Service("bookDaoAdvisor")
 public class BookDaoAdvisor implements MethodBeforeAdvice {
 
     @Override
